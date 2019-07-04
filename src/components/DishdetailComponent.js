@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Col, Label  } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
     function RenderDish({dish}) {
         if (dish != null)
@@ -58,10 +59,26 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 
 	const DishDetail = (props) =>{
 		const dishes = props.dish;
-        if (dishes == null) {
-            return (<div></div>);
-        }        
-        return (
+        if(props.isLoading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading /> 
+                   </div>
+                </div>
+                );
+        }
+        else if(props.errMess){
+            return(
+                    <div className="container">
+                        <div className="row">
+                            <h4>{props.errMess}</h4>
+                        </div>
+                    </div>
+                );
+        }
+        else if (dishes != null) {
+            return (
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
@@ -85,7 +102,13 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     </div>
                 </div>
             </div>
-		);
+        );
+        }        
+        else{
+            return (
+                    <div></div>
+                    );
+        }
 		
 	}
 
