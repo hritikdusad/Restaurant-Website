@@ -24,7 +24,7 @@ import {baseUrl} from '../shared/baseUrl';
     }
 
 
-    function RenderComments({comments, addComment, dishId}){
+    function RenderComments({comments, postComment, dishId}){
     	if(comments==null){
     		return(
     			<div></div>
@@ -53,7 +53,7 @@ import {baseUrl} from '../shared/baseUrl';
                 <ul className='list-unstyled'>
                     {cmnt}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
             </div>
 		);
 	}
@@ -98,7 +98,7 @@ import {baseUrl} from '../shared/baseUrl';
                     </div>
                     <div className="col-12 col-md-5 m-1">
                         <RenderComments comments={props.comments} 
-                            addComment={props.addComment}
+                            postComment={props.postComment}
                             dishId={props.dish.id}
                         />
                     </div>
@@ -144,7 +144,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating,  values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating,  values.author, values.comment);
 
     }
 
